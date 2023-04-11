@@ -4,6 +4,7 @@ import { useRoutes } from 'react-router-dom'
 import ReadCrewmate from './pages/ReadPosts'
 import CreateCrewmate from './pages/CreatePost'
 import EditCrewmate from './pages/EditPost'
+import CrewProfile from './pages/postProfile';
 import { Link } from 'react-router-dom'
 import { supabase } from './client'
 
@@ -21,12 +22,16 @@ const App = () => {
       element:<ReadCrewmate data={crewmate}/>
     },
     {
-      path:"/edit/:id",
+      path:"profile/:id/edit/:id",
       element: <EditCrewmate data={crewmate} />
     },
     {
       path:"/new",
       element: <CreateCrewmate />
+    },
+    {
+      path:"/profile/:id",
+      element: <CrewProfile data={crewmate}/>
     }
   ]);
 

@@ -10,7 +10,6 @@ import greenChar from './greenAmongUs.png'
 import pinkChar from './pinkAmongUs.png'
 import blueChar from './blueAmongUs.png'
 
-
 const Card = (props) =>  {
   var imgArr =[];
   if (props.color === "pint"){
@@ -31,11 +30,10 @@ const Card = (props) =>  {
 
   return (
       <div className="Card">
-          <Link to={'edit/'+ props.id}><img className="moreButton" alt="edit button" src={more} /></Link>
           <h2 className="title">{props.name}</h2>
           <h3 className="author">{props.color}</h3>
           <p className="description">{props.role}</p>
-          <img src={imgArr[0]} />
+          <Link to={'profile/'+ props.id} className='profileLink'> Profile </Link>
       </div>
   );
 };

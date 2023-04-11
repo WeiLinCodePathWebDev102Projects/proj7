@@ -14,7 +14,7 @@ const ReadCrewmate = (props) => {
             {
                 crewmate && crewmate.length > 0 ?
                 crewmate.map((crewmate,index) => 
-                   <Card id={crewmate.id} name={crewmate.name} color={crewmate.color} role={crewmate.role}/>
+                   <Card id={crewmate.id} name={crewmate.name} />
                 ) : <h2>{'No Crewmates Yet 😞'}</h2>
             }
         </div>  
