@@ -1,55 +1,61 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { useRoutes } from 'react-router-dom'
-import ReadPosts from './pages/ReadPosts'
-import CreatePost from './pages/CreatePost'
-import EditPost from './pages/EditPost'
+import ReadCrewmate from './pages/ReadPosts'
+import CreateCrewmate from './pages/CreatePost'
+import EditCrewmate from './pages/EditPost'
 import { Link } from 'react-router-dom'
 import { supabase } from './client'
+
+import amongusLogo from './amongusLogo.jpeg';
 
 
 const App = () => {
 
-  const [posts, setPosts] = useState([]); // Add state for posts
+  const [crewmate, setCrewmate] = useState([]);
 
   // Sets up routes
   let element = useRoutes([
     {
       path: "/",
-      element:<ReadPosts data={posts}/>
+      element:<ReadCrewmate data={crewmate}/>
     },
     {
       path:"/edit/:id",
-      element: <EditPost data={posts} />
+      element: <EditCrewmate data={crewmate} />
     },
     {
       path:"/new",
-      element: <CreatePost />
+      element: <CreateCrewmate />
     }
   ]);
 
   useEffect(() => {
-    // Define async function fetchData
-    const fetchData = async () => {
-      const { data } = await supabase
-        .from('Posts')
-        .select()
-        .order('created_at', { ascending: true });
-      setPosts(data);
-    }
+    fetchPosts(); // Call fetchData on component mount
+    console.log(crewmate)
+  }, []);
 
-    fetchData(); // Call fetchData on component mount
 
-  }, []); // Empty dependency array to ensure it only runs on mount
-
+  // Define async function fetchData
+  const fetchPosts = async () => {
+    const {data} = await supabase
+    .from('crewmate')
+    .select();
+  
+    // set state of posts
+    setCrewmate(data)
+  
+  }
   return ( 
 
     <div className="App">
 
       <div className="header">
-        <h1>👍 Bet 1.0</h1>
-        <Link to="/"><button className="headerBtn"> Explore Challenges 🔍  </button></Link>
-        <Link to="/new"><button className="headerBtn"> Submit Challenge 🏆 </button></Link>
+        <h1>  Crewmate Gallery </h1>
+        <img className='logo' src={amongusLogo}/>
+        <br></br>
+        <Link to="/"><button className="headerBtn"> View Crewmates 🔍  </button></Link>
+        <Link to="/new"><button className="headerBtn"> Create A Crewmate 🏆 </button></Link>
       </div>
         {element}
     </div>

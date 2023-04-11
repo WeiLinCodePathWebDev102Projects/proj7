@@ -4,21 +4,38 @@ import './Card.css'
 import more from './more.png'
 import { Link } from 'react-router-dom'
 
+import redChar from './redAmongUs.png'
+import purpleChar from './blueAmongUs.png'
+import greenChar from './greenAmongUs.png'
+import pinkChar from './pinkAmongUs.png'
+import blueChar from './blueAmongUs.png'
+
 
 const Card = (props) =>  {
-
-  const [count, setCount] = useState(0)
-  const updateCount = () => {
-    setCount((count) => count + 1);
+  var imgArr =[];
+  if (props.color === "pint"){
+    imgArr.push(pinkChar);
+  }
+  else if (props.color === "red"){
+    imgArr.push(redChar)
+  }
+  else if (props.color === "purple"){
+    imgArr.push(purpleChar)
+  }
+  else if (props.color === "green"){
+    imgArr.push(greenChar)
+  }
+  else if (props.color === "blue"){
+    imgArr.push(blueChar)
   }
 
   return (
       <div className="Card">
           <Link to={'edit/'+ props.id}><img className="moreButton" alt="edit button" src={more} /></Link>
-          <h2 className="title">{props.title}</h2>
-          <h3 className="author">{"by " + props.author}</h3>
-          <p className="description">{props.description}</p>
-          <button className="betButton" onClick={updateCount} >👍 Bet Count: {count}</button>
+          <h2 className="title">{props.name}</h2>
+          <h3 className="author">{props.color}</h3>
+          <p className="description">{props.role}</p>
+          <img src={imgArr[0]} />
       </div>
   );
 };

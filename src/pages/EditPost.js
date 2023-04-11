@@ -3,46 +3,46 @@ import { useParams } from 'react-router-dom';
 import './EditPost.css'
 import { supabase } from '../client'; // assuming you have imported and configured supabaseClient
 
-const EditPost = ({ data }) => {
+const EditCrewmate = ({ data }) => {
 
     const { id } = useParams();
-    const [post, setPost] = useState({ title: '', author: '', description: '' });
+    const [crewmate, setCrewmate] = useState({ name: '', color: '', role: '' });
 
     useEffect(() => {
-        const fetchPost = async () => {
+        const fetchCrewmate = async () => {
             const { data: postFromDB, error } = await supabase
-                .from('Posts')
+                .from('crewmate')
                 .select('*')
                 .eq('id', id)
                 .single();
 
             if (error) {
-                console.error('Error fetching post:', error);
+                console.error('Error fetching Crewmate:', error);
             } else {
-                setPost(postFromDB);
+                setCrewmate(postFromDB);
             }
         };
 
-        fetchPost();
+        fetchCrewmate();
     }, [id]);
 
-    const deletePost = async (event) => {
+    const deleteCrewmate = async (event) => {
         event.preventDefault();
 
         await supabase
-            .from('Posts')
+            .from('crewmate')
             .delete()
             .eq('id', id);
 
         window.location = "http://localhost:3000/";
     }
 
-    const updatePost = async (event) => {
+    const updateCrewmate = async (event) => {
         event.preventDefault();
 
         await supabase
-        .from('Posts')
-        .update({ title: post.title, author: post.author,  description: post.description})
+        .from('crewmate')
+        .update({ name: crewmate.name, color: crewmate.color,  role: crewmate.role})
         .eq('id', id);
 
         window.location = "/";
@@ -50,29 +50,29 @@ const EditPost = ({ data }) => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setPost(prevPost => ({ ...prevPost, [name]: value }));
+        setCrewmate(prevCrewmate => ({ ...prevCrewmate, [name]: value }));
     }
 
     return (
         <div>
             <form>
-                <label htmlFor="title">Title</label> <br />
-                <input type="text" id="title" name="title" value={post.title} onChange={handleChange} /><br />
-                <br />
+                <label htmlFor="name">Name</label> <br />
+                <input type="text" id="name" name="name" value={crewmate.name} onChange={handleChange} /><br />
+                <br/>
 
-                <label htmlFor="author">Author</label><br />
-                <input type="text" id="author" name="author" value={post.author} onChange={handleChange} /><br />
-                <br />
+                <label htmlFor="color">Color</label><br />
+                <input type="text" id="color" name="color" value={crewmate.color} onChange={handleChange} /><br />
+                <br/>
 
-                <label htmlFor="description">Description</label><br />
-                <textarea rows="5" cols="50" id="description" name="description" value={post.description} onChange={handleChange} >
+                <label htmlFor="role">Role</label><br />
+                <textarea rows="5" cols="50" id="role" name="role" value={crewmate.role} onChange={handleChange}>
                 </textarea>
-                <br />
-                <input type="submit" value="Submit" onClick={updatePost}/>
-                <button className="deleteButton" onClick={deletePost}>Delete</button>
+                <br/>
+                <input type="submit" value="Submit" onClick={updateCrewmate}/>
+                <button className='deleteButton' onClick={deleteCrewmate}> Delete </button>
             </form>
         </div>
     )
 }
 
-export default EditPost;
+export default EditCrewmate;

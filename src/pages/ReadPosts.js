@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 
-const ReadPosts = (props) => {
+const ReadCrewmate = (props) => {
 
-    const [posts, setPosts] = useState([]);
+    const [crewmate, setCrewmate] = useState([]);
 
     useEffect(() => {
-        setPosts(props.data);
+        setCrewmate(props.data);
     }, [props]);
     
     return (
         <div className="ReadPosts">
             {
-                posts && posts.length > 0 ?
-                posts.map((post,index) => 
-                   <Card id={post.id} title={post.title} author={post.author} description={post.description}/>
-                ) : <h2>{'No Challenges Yet 😞'}</h2>
+                crewmate && crewmate.length > 0 ?
+                crewmate.map((crewmate,index) => 
+                   <Card id={crewmate.id} name={crewmate.name} color={crewmate.color} role={crewmate.role}/>
+                ) : <h2>{'No Crewmates Yet 😞'}</h2>
             }
         </div>  
     )
 }
 
-export default ReadPosts;
+export default ReadCrewmate;
